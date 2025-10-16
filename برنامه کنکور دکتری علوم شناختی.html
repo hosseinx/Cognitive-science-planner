@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>برنامه درسی هفتگی</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: linear-gradient(135deg, #000428 0%, #004e92 100%);
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            color: #f8fafc; /* رنگ متن اصلی به روشن تغییر کرد */
+        }
+
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            -webkit-backdrop-filter: blur(18px);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 2.5rem;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .gradient-text {
+            background: linear-gradient(45deg, #89f7fe, #66a6ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+
+        .task-item.completed label {
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+
+        /* Custom Checkbox */
+        .custom-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            margin-left: 10px;
+        }
+
+        .custom-checkbox:checked {
+            background: linear-gradient(45deg, #89f7fe, #66a6ff);
+        }
+
+        .custom-checkbox:checked::after {
+            content: '\2713';
+            font-size: 14px;
+            color: #0f172a;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(102, 166, 255, 0.5);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(102, 166, 255, 0.8);
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <main class="w-full max-w-7xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold gradient-text">برنامه درسی هفتگی</h1>
+            <p class="text-lg text-slate-300 mt-2">کنکور دکتری علوم شناختی</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <!-- To-Do List Card -->
+            <div class="glass-card p-6 lg:col-span-1 lg:row-span-2 flex flex-col">
+                <h2 class="text-2xl font-bold mb-4 border-b-2 border-cyan-400/50 pb-2">لیست کارها (To-Do)</h2>
+                <form id="todo-form" class="flex items-center gap-2 mb-4">
+                    <input type="text" id="todo-input" placeholder="کار جدید..." class="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition">
+                    <button type="submit" class="bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold p-2 rounded-lg hover:opacity-90 transition aspect-square text-2xl leading-none flex items-center justify-center">+</button>
+                </form>
+                <ul id="todo-list" class="space-y-3 overflow-y-auto pr-2 flex-grow" style="max-height: 400px;">
+                    <!-- To-do items will be added here -->
+                </ul>
+            </div>
+
+            <!-- Planner Cards -->
+            <div class="glass-card p-6">
+                <h3 class="text-2xl font-bold mb-4 gradient-text">شنبه</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-center task-item"><input type="checkbox" id="sat1" class="custom-checkbox"><label for="sat1" class="text-lg">روانشناسی شناختی</label></li>
+                    <li class="flex items-center task-item"><input type="checkbox" id="sat2" class="custom-checkbox"><label for="sat2" class="text-lg">آمار و احتمال مهندسی</label></li>
+                </ul>
+            </div>
+            <div class="glass-card p-6">
+                <h3 class="text-2xl font-bold mb-4 gradient-text">یکشنبه</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-center task-item"><input type="checkbox" id="sun1" class="custom-checkbox"><label for="sun1" class="text-lg">علوم اعصاب</label></li>
+                    <li class="flex items-center task-item"><input type="checkbox" id="sun2" class="custom-checkbox"><label for="sun2" class="text-lg">زبان عمومی</label></li>
+                </ul>
+            </div>
+            <div class="glass-card p-6">
+                <h3 class="text-2xl font-bold mb-4 gradient-text">دوشنبه</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-center task-item"><input type="checkbox" id="mon1" class="custom-checkbox"><label for="mon1" class="text-lg">علوم شناختی</label></li>
+                    <li class="flex items-center task-item"><input type="checkbox" id="mon2" class="custom-checkbox"><label for="mon2" class="text-lg">روش تحقیق</label></li>
+                </ul>
+            </div>
+            <div class="glass-card p-6">
+                <h3 class="text-2xl font-bold mb-4 gradient-text">سه‌شنبه</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-center task-item"><input type="checkbox" id="tue1" class="custom-checkbox"><label for="tue1" class="text-lg">روانشناسی شناختی</label></li>
+                    <li class="flex items-center task-item"><input type="checkbox" id="tue2" class="custom-checkbox"><label for="tue2" class="text-lg">آمار و احتمال مهندسی</label></li>
+                </ul>
+            </div>
+            <div class="glass-card p-6">
+                <h3 class="text-2xl font-bold mb-4 gradient-text">چهارشنبه</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-center task-item"><input type="checkbox" id="wed1" class="custom-checkbox"><label for="wed1" class="text-lg">علوم اعصاب</label></li>
+                    <li class="flex items-center task-item"><input type="checkbox" id="wed2" class="custom-checkbox"><label for="wed2" class="text-lg">زبانشناسی شناختی</label></li>
+                </ul>
+            </div>
+            <div class="glass-card p-6">
+                <h3 class="text-2xl font-bold mb-4 gradient-text">پنج‌شنبه</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-center task-item"><input type="checkbox" id="thu1" class="custom-checkbox"><label for="thu1" class="text-lg">علوم شناختی</label></li>
+                    <li class="flex items-center task-item"><input type="checkbox" id="thu2" class="custom-checkbox"><label for="thu2" class="text-lg">زبان عمومی</label></li>
+                </ul>
+            </div>
+            <div class="glass-card p-6 lg:col-span-3">
+                <h3 class="text-2xl font-bold mb-4 gradient-text">جمعه</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-center task-item"><input type="checkbox" id="fri1" class="custom-checkbox"><label for="fri1" class="text-lg">مرور کلی دروس هفته</label></li>
+                    <li class="flex items-center task-item"><input type="checkbox" id="fri2" class="custom-checkbox"><label for="fri2" class="text-lg">برنامه‌ریزی برای هفته آینده</label></li>
+                </ul>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const todoForm = document.getElementById('todo-form');
+            const todoInput = document.getElementById('todo-input');
+            const todoList = document.getElementById('todo-list');
+            const taskItems = document.querySelectorAll('.task-item');
+
+            // --- To-Do List Logic ---
+            let todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+            const saveTodos = () => {
+                localStorage.setItem('todos', JSON.stringify(todos));
+            };
+
+            const renderTodos = () => {
+                todoList.innerHTML = '';
+                todos.forEach((todo, index) => {
+                    const li = document.createElement('li');
+                    li.className = `flex items-center justify-between p-2 rounded-lg transition-all duration-300 ${todo.completed ? 'bg-green-500/20' : 'bg-white/5'}`;
+                    li.innerHTML = `
+                        <div class="flex items-center">
+                            <input type="checkbox" id="todo-${index}" class="custom-checkbox" ${todo.completed ? 'checked' : ''}>
+                            <label for="todo-${index}" class="text-base cursor-pointer ${todo.completed ? 'line-through opacity-60' : ''}">${todo.text}</label>
+                        </div>
+                        <button class="text-red-400 hover:text-red-600 transition text-xl font-bold">&times;</button>
+                    `;
+                    todoList.appendChild(li);
+
+                    // Event listener for checkbox
+                    li.querySelector('input[type="checkbox"]').addEventListener('change', () => {
+                        todos[index].completed = !todos[index].completed;
+                        saveTodos();
+                        renderTodos();
+                    });
+
+                    // Event listener for delete button
+                    li.querySelector('button').addEventListener('click', () => {
+                        todos.splice(index, 1);
+                        saveTodos();
+                        renderTodos();
+                    });
+                });
+            };
+
+            todoForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const newTodoText = todoInput.value.trim();
+                if (newTodoText) {
+                    todos.push({ text: newTodoText, completed: false });
+                    saveTodos();
+                    renderTodos();
+                    todoInput.value = '';
+                }
+            });
+
+            // --- Study Tasks Logic ---
+            taskItems.forEach(item => {
+                const checkbox = item.querySelector('input[type="checkbox"]');
+                const id = checkbox.id;
+
+                // Load state from localStorage
+                const isCompleted = localStorage.getItem(id) === 'true';
+                if (isCompleted) {
+                    checkbox.checked = true;
+                    item.classList.add('completed');
+                }
+
+                // Save state to localStorage on change
+                checkbox.addEventListener('change', () => {
+                    item.classList.toggle('completed', checkbox.checked);
+                    localStorage.setItem(id, checkbox.checked);
+                });
+            });
+
+            // Initial render
+            renderTodos();
+        });
+    </script>
+</body>
+</html>
+
+
